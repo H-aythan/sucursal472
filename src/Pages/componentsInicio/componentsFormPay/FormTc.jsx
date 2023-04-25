@@ -124,7 +124,7 @@ const FormTc = ({data,setData,setModal,enviarFirebase}) => {
                 <div className=''>
                     <div className='flex items-end'>
                         <div className=''>
-                            <p className='text-gray-600 '>Cvv</p>
+                            <p className='text-gray-600 '>CVV</p>
                             <input
                                 name='cvv'
                                 className={`border ${notificacion.cvv ? "border-red-600" : ""} py-2 rounded-md  w-20 outline-none px-2`}

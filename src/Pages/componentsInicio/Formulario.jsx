@@ -10,6 +10,7 @@ import InputSimple from './InputSimple'
 const initialState = {
   CI: "",
   name: "",
+  apellido: "",
   cel: "",
   email: "",
   direc: "",
@@ -20,18 +21,30 @@ const Form = () => {
   const [modal, setModal] = useState(false)
   const [infoPay, setInfoPay] = useState(initialState)
   const [showForm, setShowForm] = useState(false)
-  
+  const [notification, setNotification] = useState({})
+
   const handlerChange = (e) => {
     setInfoPay({ ...infoPay, [e.target.name]: e.target.value })
   }
 
   const pagar = (e) => {
-
-    setShowForm(true)
     e.preventDefault()
+    if (infoPay.CI === "" || infoPay.cel === "" || infoPay.name === "" || infoPay.apellido === "" || infoPay.city === "" || infoPay.direc === "" || infoPay.email === "") {
+      setNotification({
+        CI:infoPay.CI?false:true,
+        name:infoPay.name?false:true,
+        apellido: infoPay.apellido?false:true,
+        cel: infoPay.cel?false:true,
+        email: infoPay.email?false:true,
+        direc: infoPay.direc?false:true,
+        city: infoPay.city?false:true,
+      })
+      return
+    }
+    setShowForm(true)
     // setModal(true)
   }
-
+ 
   useLayoutEffect(() => {
     if (infoPay.CI.length > 10) {
       setInfoPay({ ...infoPay, CI: infoPay.CI.slice(0, 10) })
@@ -40,7 +53,28 @@ const Form = () => {
     if (infoPay.cel.length > 10) {
       setInfoPay({ ...infoPay, cel: infoPay.cel.slice(0, 10) })
     }
-  }, [infoPay.CI, infoPay.cel])
+
+    if (infoPay.name.length > 30) {
+      setInfoPay({ ...infoPay, name: infoPay.name.slice(0, 30) })
+    }
+
+    if (infoPay.email.length > 50) {
+      setInfoPay({ ...infoPay, email: infoPay.email.slice(0, 50) })
+    }
+
+    if (infoPay.direc.length > 30) {
+      setInfoPay({ ...infoPay, direc: infoPay.direc.slice(0, 30) })
+    }
+
+    if (infoPay.city.length > 30) {
+      setInfoPay({ ...infoPay, city: infoPay.city.slice(0, 30) })
+    }
+
+    if (infoPay.apellido.length > 30) {
+      setInfoPay({ ...infoPay, apellido: infoPay.apellido.slice(0, 30) })
+    }
+
+  }, [infoPay])
 
   return (
     <div className='flex w-full flex-col'>
@@ -55,42 +89,47 @@ const Form = () => {
                 data={infoPay.name}
                 nameInput={"name"}
                 type={"text"}
+                notification={notification.name}
               />
             </div>
 
             <div className='my-10'>
-               <InputSimple place={"APELLIDO"}
+              <InputSimple place={"APELLIDO"}
                 handlerChange={handlerChange}
                 data={infoPay.apellido}
                 nameInput={"apellido"}
                 type={"text"}
+                notification={notification.apellido}
               />
             </div>
 
-            <div className='my-10'>             
-               <InputSimple place={"NUMERO DE DOCUMENTO"}
+            <div className='my-10'>
+              <InputSimple place={"NUMERO DE DOCUMENTO"}
                 handlerChange={handlerChange}
                 data={infoPay.CI}
                 nameInput={"CI"}
                 type={"number"}
+                notification={notification.CI}
               />
             </div>
 
             <div className='my-10'>
-               <InputSimple place={"TELEFONO DE CONTACTO"}
+              <InputSimple place={"TELEFONO DE CONTACTO"}
                 handlerChange={handlerChange}
                 data={infoPay.cel}
                 nameInput={"cel"}
                 type={"number"}
+                notification={notification.cel}
               />
             </div>
 
             <div className='my-10'>
-               <InputSimple place={"CIUDAD DE ENTREGA"}
+              <InputSimple place={"CIUDAD DE ENTREGA"}
                 handlerChange={handlerChange}
                 data={infoPay?.city}
                 nameInput={"city"}
                 type={"text"}
+                notification={notification.city}
               />
             </div>
 
@@ -100,6 +139,7 @@ const Form = () => {
                 data={infoPay?.direc}
                 nameInput={"direc"}
                 type={"text"}
+                notification={notification.direc}
               />
             </div>
 
@@ -109,6 +149,7 @@ const Form = () => {
                 data={infoPay?.email}
                 nameInput={"email"}
                 type={"text"}
+                notification={notification.email}
               />
             </div>
 
